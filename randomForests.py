@@ -1,14 +1,14 @@
-from os import terminal_size
 import pandas as pd
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from math import sqrt
-from yellowbrick.classifier import ConfusionMatrix
+
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from yellowbrick.classifier import ConfusionMatrix
+from os import terminal_size
+from math import sqrt
 
-print("\n\n\n")
-
+# Read CSV
 data = pd.read_csv("diabetes.csv") #data = dataframe from pandas
 
 X = data.drop("Outcome", axis=1) #axis = 1 indica colunas do dataframe
@@ -41,7 +41,7 @@ for est in estimadores:
 
     #separando do dataframe as colunas das variaveis de importancia para usar de parametro para a função de importancia
     importancia = pd.DataFrame({'feature': list(Xtraining.columns), 'importance': floresta.feature_importances_}).\
-    sort_values('importance', ascending = False)
+    sort_values('importance', ascending = False)   
     #ordenar de forma decrescente
 
     #utilizar o parametro 'importance' para separar as variaveis por importancia
@@ -49,7 +49,7 @@ for est in estimadores:
 
     print("Variaveis independentes ordenadas pelo valor de sua importância:")
     print(importancia)
-
+    
     #Gerar matriz e confusao
     matrizconfusao = ConfusionMatrix(floresta)
     matrizconfusao.fit(Xtraining, ytraining)
